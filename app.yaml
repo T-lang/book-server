@@ -1,13 +1,17 @@
 runtime: python
-env: flex 
-DEBUG: 'False'
+env: flex
+entrypoint: gunicorn -b :$PORT main:app
+
+runtime_config:
+  python_version: 3
 
 env_variables:
-  DB_HOST: '34.72.251.111'
+  CLOUD_SQL_CONNECTION_NAME: ground-up-app:us-central1:psql-serv
+  DB_HOST: '34.72.251.111:5432'
   DB_PORT: '5432'
   DB_NAME: 'postgres'
   DB_USER: 'user2' 
-  DB_PASSWORD: 'password'
+  DB_PASS: 'password'
 
 beta_settings:
-  cloud_sql_instances: ground-up-app:us-central1:psql-serv
+  cloud_sql_instances: ground-up-app:us-central1:psql-serv=tcp:5432
